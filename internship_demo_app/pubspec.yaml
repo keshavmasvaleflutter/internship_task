@@ -1,0 +1,29 @@
+name: internship_demo_app
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.2
+
+dependencies:
+  expandable: ^5.0.1
+  flutter:
+    sdk: flutter
+  google_fonts: ^6.2.1
+  http: ^1.2.2
+  path: ^1.9.0
+  sqflite: ^2.3.3+2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+     - assets/images/filter_24.png
+     - assets\images\notification_img.png
+     - assets\images\profile_img.png
