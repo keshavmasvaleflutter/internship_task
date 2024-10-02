@@ -1,3 +1,8 @@
 # internship_demo_app
 
-A new Flutter project.
+A internship demo app:
+Features:-
+1) Responsive
+2) Live Data Update
+3) local database
+4) authenticaton
