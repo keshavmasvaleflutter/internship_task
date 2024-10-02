@@ -4,7 +4,7 @@ A internship demo app:
 
 Features:-
 
-Responsive
-Live Data Update
-local database
-authenticaton
+1) Responsive
+2) Live Data Update
+3) local database
+4) authenticaton
