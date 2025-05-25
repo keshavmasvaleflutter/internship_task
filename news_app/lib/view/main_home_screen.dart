@@ -39,6 +39,7 @@ class _MainScreenState extends State<HomeScreen> {
             label: 'Bookmarks',
           ),
         ],
+        
         selectedItemColor: AppColors.primaryLight,
         unselectedItemColor: Colors.grey,
         backgroundColor: AppColors.primaryDark,

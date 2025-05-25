@@ -35,3 +35,4 @@ flutter icons:
   image_path: "assets/app_logo.png"
   android: true
   ios: true
+  app_name: "SwiftBrief"

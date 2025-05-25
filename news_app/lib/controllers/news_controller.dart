@@ -4,8 +4,8 @@ import 'package:news_app/services/api_service.dart';
 
 class NewsController extends GetxController {
   NewsModel newsModel = NewsModel();
-  final List<Articles> articles = [];
-  bool isLoading = true;
+  final List<Articles> articles = <Articles>[].obs;
+  RxBool isLoading = true.obs;
 
   @override
   void onInit() {
@@ -19,10 +19,10 @@ class NewsController extends GetxController {
       final data = await NewsService.fetchNewsFromAPI(query: "india");
       newsModel = data;
       articles.assignAll(newsModel.articles ?? []);
-      isLoading = false;
+      isLoading.value = false;
       update();
     } catch (error) {
-      isLoading = false;
+      isLoading.value = false;
       update();
     }
   }

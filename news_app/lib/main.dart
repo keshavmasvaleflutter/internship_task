@@ -34,3 +34,4 @@ class MainApp extends StatelessWidget {
 // The app is designed to be responsive and works well on different screen sizes using the flutter_screenutil package.
 // The app includes features like a splash screen, sign in, sign up, news feed, and detailed news view.
 // The app is built using Flutter and follows best practices for MVC architecture and code organization.
+// The app is designed to be user-friendly and provides a smooth experience for reading news articles.

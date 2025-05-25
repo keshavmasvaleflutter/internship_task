@@ -25,9 +25,8 @@ class _NewsFeedScreenState extends State<NewsFeedScreen> {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     final NewsController newsController = Get.put(NewsController());
-
     return Obx(
-      () => newsController.isLoading
+      () => newsController.isLoading.value
           ? const Center(
               child: CircularProgressIndicator(
                 color: AppColors.primaryLight,

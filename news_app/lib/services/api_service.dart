@@ -9,7 +9,6 @@ class NewsService {
   // Fetch News From API
   static Future<NewsModel> fetchNewsFromAPI(
       {String query = "india", String sortBy = "publishedAt"}) async {
-            log("in fetchNewsArticles API -------");
     const String apiKey = "eb714cee1349404399bee1937dfd7a9a";
     const String baseUrl = "https://newsapi.org/v2";
     String todayDate = DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(const Duration(days: 1)));
@@ -20,7 +19,7 @@ class NewsService {
 
     try {
       final response = await http.get(url);
-
+      log("Response from API: ${response.body}");
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
 
