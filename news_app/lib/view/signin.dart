@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:news_app/services/firebase_db.dart';
-import 'package:news_app/view/homepage.dart';
-import 'package:news_app/view/signup.dart';
+import 'package:news_app/config/config.dart';
+import 'package:news_app/services/services.dart';
+import 'package:news_app/view/view.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -16,131 +17,148 @@ TextEditingController passwordController = TextEditingController();
 class _SignInState extends State {
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.15,
-          ),
-          const Text(
-            "Sign in",
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w600,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: screenHeight * 0.1,
             ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height / 15,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: MediaQuery.sizeOf(context).width*0.035, right: MediaQuery.sizeOf(context).width*0.035),
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: emailController,
-                  decoration: const InputDecoration(
-                    label: Text("Email"),
-                  ),
-                  cursorColor: Colors.white,
-                  style: const TextStyle(color: Colors.white),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 23,
-                ),
-                TextFormField(
-                  controller: passwordController,
-                  decoration: const InputDecoration(
-                    label: Text("Password"),
-                    suffix: Text(
-                      "Forgot?",
-                      style: TextStyle(
-                        color: Color.fromRGBO(255, 255, 255, 1.0),
+            Image.asset("assets/app_logo.png",height: screenHeight*0.2, width: screenWidth*1,),
+            Text(
+              "Sign in",
+              style: textTheme.displayLarge?.copyWith(
+                color: colorScheme.onPrimary,
+                fontSize: 30.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(
+              height: screenHeight*0.05,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: screenWidth*0.035, right: screenWidth*0.035),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Enter your email",
+                        style: textTheme.bodyMedium,
                       ),
                     ),
+                    cursorColor: colorScheme.onPrimary,
+                    style: TextStyle(color: colorScheme.onPrimary,),
                   ),
-                  style: const TextStyle(color: Colors.white),
-                  cursorColor: Colors.white,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 18,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (emailController.text.isNotEmpty &&
-                        passwordController.text.isNotEmpty) {
-                      bool isValid = await FirebaseDB.signIn(
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                      );
-                      if (isValid) {
-                        Get.to(() => const HomePage());
-                        emailController.clear();
-                        passwordController.clear();
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 23.h,
+                  ),
+                  TextFormField(
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      label: Text("Enter your password",
+                        style: textTheme.bodyMedium,
+                      ),
+                      suffix: Text(
+                        "Forgot?",
+                        style: textTheme.bodyMedium!.copyWith(
+                          color: AppColors.pinkAccent,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    style: TextStyle(color: colorScheme.onPrimary,),
+                    cursorColor: colorScheme.onPrimary,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 18.h,
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (emailController.text.isNotEmpty &&
+                          passwordController.text.isNotEmpty) {
+                        bool isValid = await FirebaseDB.signIn(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        );
+                        if (isValid) {
+                          Get.offAll(() => const HomeScreen());
+                          emailController.clear();
+                          passwordController.clear();
+                        } else {
+                          Get.snackbar(
+                            "Login Failed",
+                            "Invalid email or password",
+                            colorText: colorScheme.onPrimary,
+                            backgroundColor: colorScheme.surface,
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        }
                       } else {
                         Get.snackbar(
-                          "Login Failed",
-                          "Invalid email or password",
-                          colorText: Colors.white,
+                          "Error",
+                          "Email and Password fields cannot be empty",
+                          colorText: colorScheme.onPrimary,
                           backgroundColor: Colors.black,
                           snackPosition: SnackPosition.BOTTOM,
                         );
                       }
-                    } else {
-                      Get.snackbar(
-                        "Error",
-                        "Email and Password fields cannot be empty",
-                        colorText: Colors.white,
-                        backgroundColor: Colors.black,
-                        snackPosition: SnackPosition.BOTTOM,
-                      );
-                    }
-                  },
-                  style: const ButtonStyle(
-                    backgroundColor:
-                        WidgetStatePropertyAll(Color.fromRGBO(9, 9, 22, 1)),
-                    minimumSize: WidgetStatePropertyAll(Size(400, 50)),
-                    shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5)))),
-                    side:
-                        WidgetStatePropertyAll(BorderSide(color: Colors.white)),
-                  ),
-                  child: const Text(
-                    "Sign in",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Color.fromRGBO(255, 255, 255, 1.0),
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 18,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      "Don't have account?",
-                      style: TextStyle(fontWeight: FontWeight.w300),
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          const WidgetStatePropertyAll(AppColors.buttonColor),
+                      minimumSize: WidgetStatePropertyAll(Size(screenWidth*0.95,
+                            screenHeight*0.06)),
+                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5.r)))),
+                      side:
+                         WidgetStatePropertyAll(BorderSide(color: colorScheme.onPrimary)),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        Get.off(() => const Signup());
-                        emailController.clear();
-                        passwordController.clear();
-                      },
-                      child: const Text(
-                        "Create now",
-                        style: TextStyle(
-                            color: Colors.pink, fontWeight: FontWeight.w600),
+                    child: Text(
+                      "Sign in",
+                      style: textTheme.titleLarge,
+                    ),
+                  ),
+                  SizedBox(
+                    height: screenHeight / 18.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Don't have account?",
+                        style: textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                      TextButton(
+                        onPressed: () {
+                          Get.off(() => const Signup());
+                          emailController.clear();
+                          passwordController.clear();
+                        },
+                        child: Text(
+                          "Create now",
+                          style: textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.pinkAccent,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

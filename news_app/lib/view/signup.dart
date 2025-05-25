@@ -1,75 +1,99 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:news_app/services/firebase_db.dart';
-import 'package:news_app/view/homepage.dart';
-import 'package:news_app/view/signin.dart';
+import 'package:news_app/config/config.dart';
+import 'package:news_app/services/services.dart';
+import 'package:news_app/view/view.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
-
+  
   @override
   State createState() => _SignupState();
 }
 
-TextEditingController userNameController = TextEditingController();
-TextEditingController emailController = TextEditingController();
-TextEditingController passwordController = TextEditingController();
-String? selectedValue;
-
 class _SignupState extends State {
+
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  String? selectedValue;
+
+  @override
+  void dispose() {
+    userNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
+              height: screenHeight * 0.05,
             ),
-            const Text(
+            Image.asset(
+              "assets/app_logo.png",
+              height: screenHeight * 0.2,
+              width: screenWidth * 1,
+            ),
+            Text(
               "Sign up",
-              style: TextStyle(
+              style: textTheme.headlineLarge!.copyWith(
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
-              ),
+              )
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height / 15,
+              height: screenHeight * 0.04,
             ),
             Padding(
-              padding: EdgeInsets.only(left: MediaQuery.sizeOf(context).width*0.035, right: MediaQuery.sizeOf(context).width*0.035),
+              padding: EdgeInsets.only(
+                  left: screenWidth * 0.035,
+                  right: screenWidth * 0.035,
+                ),
               child: Column(
                 children: [
                   TextFormField(
                     controller: userNameController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       label: Text(
                         "Enter Your Username",
+                        style: textTheme.bodyMedium,
                       ),
                     ),
-                    cursorColor: Colors.white,
-                    style: const TextStyle(color: Colors.white),
+                    cursorColor: AppColors.primaryLight,
+                    style: textTheme.bodyMedium,
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 50,
+                    height: screenHeight / 50,
                   ),
                   TextFormField(
                     controller: emailController,
-                    decoration: const InputDecoration(
-                      label: Text("Enter Your Email"),
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Enter Your Email",
+                      style: textTheme.bodyMedium,
+                      ),
                     ),
-                    cursorColor: Colors.white,
-                    style: const TextStyle(color: Colors.white),
+                    cursorColor: AppColors.primaryLight,
+                    style: textTheme.bodyMedium,
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 50,
+                    height: screenHeight / 50,
                   ),
                   DropdownButtonFormField<String>(
                     decoration: const InputDecoration(
                       labelText: "Select the country",
                     ),
-                    dropdownColor: Colors.grey.withOpacity(0.3),
+                    dropdownColor: AppColors.grey.withAlpha(30),
                     value: selectedValue,
                     onChanged: (String? newValue) {
                       setState(() {
@@ -99,29 +123,29 @@ class _SignupState extends State {
                         value: value,
                         child: Text(
                           value,
-                          style: const TextStyle(
-                            color: Color.fromRGBO(255, 255, 255, 1.0),
-                            fontWeight: FontWeight.w300,
+                          style: textTheme.bodyMedium!.copyWith(
+                            color: AppColors.primaryLight,
                           ),
                         ),
                       );
                     }).toList(),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 50,
+                    height: screenHeight / 50,
                   ),
                   TextFormField(
                     controller: passwordController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       label: Text(
                         "Enter Your Password",
+                        style: textTheme.bodyMedium,
                       ),
                     ),
-                    cursorColor: Colors.white,
-                    style: const TextStyle(color: Colors.white),
+                    cursorColor: AppColors.primaryLight,
+                    style: textTheme.bodyMedium,
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 18,
+                    height: screenHeight * 0.05,
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -136,7 +160,7 @@ class _SignupState extends State {
                           country: selectedValue!,
                         );
                         if (isValid) {
-                          Get.to(() => const HomePage());
+                          Get.offAll(() => const HomeScreen());
                           userNameController.clear();
                           emailController.clear();
                           selectedValue = null;
@@ -146,30 +170,41 @@ class _SignupState extends State {
                         Get.snackbar(
                           "Error",
                           "Details cannot be empty",
-                          colorText: Colors.white,
+                          colorText: AppColors.primaryLight,
                           backgroundColor: Colors.black,
                           snackPosition: SnackPosition.BOTTOM,
                         );
                       }
                     },
                     style: ButtonStyle(
-                      backgroundColor:
-                          const WidgetStatePropertyAll(Color.fromRGBO(9, 9, 22, 1)),
-                      minimumSize: WidgetStatePropertyAll(Size(MediaQuery.sizeOf(context).width*0.94, MediaQuery.sizeOf(context).width*0.1)),
-                      shape: const WidgetStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5)))),
-                      side: const WidgetStatePropertyAll(BorderSide(color: Colors.white)),
+                      backgroundColor: const WidgetStatePropertyAll(
+                        AppColors.buttonColor,
+                      ),
+                      minimumSize: WidgetStatePropertyAll(
+                        Size(
+                          screenWidth*0.95,
+                          screenHeight*0.06
+                        ),
+                      ),
+                      shape: const WidgetStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                      ),
+                      side: const WidgetStatePropertyAll(
+                        BorderSide(color: AppColors.primaryLight),
+                      ),
                     ),
-                    child: const Text(
+                    child: Text(
                       "Sign up",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500),
+                      style: textTheme.titleLarge!.copyWith(
+                        color: AppColors.primaryLight,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height / 18,
+                    height: screenHeight / 18,
                   ),
                   TextButton(
                     onPressed: () {
@@ -179,19 +214,21 @@ class _SignupState extends State {
                       selectedValue = null;
                       passwordController.clear();
                     },
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "Have an account? ",
-                          style: TextStyle(
-                              color: Color.fromRGBO(255, 255, 255, 1.0),
-                              fontWeight: FontWeight.w300),
+                          style: textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w300,
+                          ),
                         ),
                         Text(
                           "Sign in now",
-                          style: TextStyle(
-                              color: Colors.pink, fontWeight: FontWeight.w700),
+                          style: textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.pinkAccent,
+                          ),
                         ),
                       ],
                     ),

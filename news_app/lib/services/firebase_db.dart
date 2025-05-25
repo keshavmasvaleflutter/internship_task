@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FirebaseDB {
-  static final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  static final FirebaseFirestore _firebaseFirestore =
+      FirebaseFirestore.instance;
+
+  // Signup with email and Password
   static Future<bool> signUp(
       {required String email,
       required String password,
@@ -19,15 +22,15 @@ class FirebaseDB {
       );
       String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
       String userId = "${email.split('@')[0]}_$timestamp";
-      await _firebaseFirestore                          //await _firebaseFirestore.collection("collectionPath").doc("users").set({
+      await _firebaseFirestore //await _firebaseFirestore.collection("collectionPath").doc("users").set({
           .collection("users")
           .doc("userData: ${userCredential.user!.uid}")
           .set({
         'email': email,
         'userName': userName,
         'country': country,
-        'password':password,
-        'userId':userId,
+        'password': password,
+        'userId': userId,
       });
       log("Account created successfully");
       return true;
@@ -50,8 +53,7 @@ class FirebaseDB {
           backgroundColor: Colors.black,
           snackPosition: SnackPosition.BOTTOM,
         );
-      }
-      else{
+      } else {
         Get.snackbar(
           "Signup Failed",
           "Invalid Input",
@@ -74,6 +76,7 @@ class FirebaseDB {
     }
   }
 
+  // Signin with Email and password
   static Future<bool> signIn(
       {required String email, required String password}) async {
     log("in signin function");
@@ -91,8 +94,10 @@ class FirebaseDB {
     }
   }
 
-  // static Future<void> getDataFromCloud() async{
-  //   DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection('users').doc().get();
+  // static Future<void> getDataFromCloud() async {
+  //   DocumentSnapshot userSnapshot =
+  //       await FirebaseFirestore.instance.collection('users').doc().get();
   //   var userName = userSnapshot['userName'];
+  //   log(userName.toString());
   // }
 }

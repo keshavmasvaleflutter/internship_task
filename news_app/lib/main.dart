@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:news_app/view/signin.dart';
+import 'package:news_app/config/app_theme.dart';
+import 'package:news_app/view/view.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,48 +17,20 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.grey.withOpacity(0.2),
-        textTheme: TextTheme(
-          displayLarge: GoogleFonts.lora(color: Colors.white),
-          displayMedium: GoogleFonts.lora(color: Colors.white),
-          displaySmall: GoogleFonts.lora(color: Colors.white),
-          headlineLarge: GoogleFonts.lora(color: Colors.white),
-          headlineMedium: GoogleFonts.lora(color: Colors.white),
-          headlineSmall: GoogleFonts.lora(color: Colors.white),
-          titleLarge: GoogleFonts.lora(color: Colors.white),
-          titleMedium: GoogleFonts.lora(color: Colors.white),
-          titleSmall: GoogleFonts.lora(color: Colors.white),
-          bodyMedium: GoogleFonts.lora(color: Colors.white),
-          bodySmall: GoogleFonts.lora(color: Colors.white),
-          labelLarge: GoogleFonts.lora(color: Colors.white),
-          labelMedium: GoogleFonts.lora(color: Colors.white),
-          labelSmall: GoogleFonts.lora(color: Colors.white),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          labelStyle: TextStyle(
-            color: Colors.white.withOpacity(0.8),
-            fontWeight: FontWeight.w300,
-          ),
-          focusedBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color.fromRGBO(255, 255, 255, 1.0)),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.white.withOpacity(0.5)),
-          ),
-        ),
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      builder: (context, child) => GetMaterialApp(
+        theme: appTheme,
+        debugShowCheckedModeBanner: false,
+        home: const SplashScreen(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const SignIn(),
     );
   }
 }
 
-
-
-
-// https://newsdata.io/api/1/news?apikey=pub_608265b02da58221848cf897aefb877e1743c&country=in&language=en,hi,mr&category=business,crime,education,politics,science
-// https://newsdata.io/api/1/latest?apikey=pub_608265b02da58221848cf897aefb877e1743c
-
-// https://newsapi.org/v2/everything?q=tesla&from=2024-12-16&sortBy=publishedAt&apiKey=eb714cee1349404399bee1937dfd7a9a
+// SwiftBrief App information
+// This is a simple news app that fetches news articles from an API and displays them in a feed.
+// It uses Firebase for backend services and GetX for state management.
+// The app is designed to be responsive and works well on different screen sizes using the flutter_screenutil package.
+// The app includes features like a splash screen, sign in, sign up, news feed, and detailed news view.
+// The app is built using Flutter and follows best practices for MVC architecture and code organization.
