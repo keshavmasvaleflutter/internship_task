@@ -15,13 +15,19 @@ The **News App** is a Flutter-based mobile application designed to deliver real-
 
 ---
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/7b66d864-7774-4e41-8588-fa14c782d439 width="250"/>
-  <img src="https://github.com/user-attachments/assets/f2ea12a1-6d3d-4009-8d0b-e40c1dfaca5c width="250"/>
-  <img src="https://github.com/user-attachments/assets/e4dce734-95d7-43ea-9737-0e4f340382e4" width="250"/>
-  <img src="https://github.com/user-attachments/assets/a7546f21-f4e4-4817-b2a1-5a88de6344ff" width="250"/>
-  <img src="https://github.com/user-attachments/assets/fa2c7ea6-82cc-4ea4-a54f-807e12eed6c8" width="250"/>
-  <img src="https://github.com/user-attachments/assets/eaa94fd1-2844-4f6b-bf45-b35b35425dc9" width="250"/>
-</p>
+## Screenshots
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/5df76d04-cc1b-4300-adb7-80bd49ec013b" alt="Screenshot 1" width="250" style="margin: 8px;" />
+  <img src="https://github.com/user-attachments/assets/2871d9b0-6a48-417c-a1d0-92a26268e09b" alt="Screenshot 2" width="250" style="margin: 8px;" />
+  <img src="https://github.com/user-attachments/assets/062589dc-3b42-478e-8cb5-e2772a20d9c4" alt="Screenshot 3" width="250" style="margin: 8px;" />
+  <img src="https://github.com/user-attachments/assets/dacda6f9-1822-4e7f-868c-2e46b5b3a744" alt="Screenshot 4" width="250" style="margin: 8px;" />
+  <img src="https://github.com/user-attachments/assets/38c54558-3907-4a4b-a2a0-21b007bdf3c7" alt="Screenshot 5" width="250" style="margin: 8px;" />
+  <img src="https://github.com/user-attachments/assets/601ad96b-81e2-49b1-b261-82941ecb6d4d" alt="Screenshot 6" width="250" style="margin: 8px;" />
+  <img src="https://github.com/user-attachments/assets/1c482184-d84c-49b2-8c42-92e300096db7" alt="Screenshot 7" width="250" style="margin: 8px;" />
+  <img src="https://github.com/user-attachments/assets/83c94501-febb-4795-a7b1-36debdebb2df" alt="Screenshot 8" width="250" style="margin: 8px;" />
+  <img src="https://github.com/user-attachments/assets/e8d6eaab-8242-495f-afdd-ac8809be0b72" alt="Screenshot 9" width="250" style="margin: 8px;" />
+  <img src="https://github.com/user-attachments/assets/25bd600a-cbc2-46c2-a9fc-4309872a5a38" alt="Screenshot 10" width="250" style="margin: 8px;" />
+</div>
 
 ---
